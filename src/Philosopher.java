@@ -6,8 +6,13 @@ public class Philosopher extends Thread {
     private Fork forkLeft;
     private Fork forkRight;
     private int count;
+    private static final int countMax;
     private CountDownLatch finish;
     private ActionCounter counter;
+
+    static{
+        countMax = 3;
+    }
 
     public Philosopher(String name, Fork forkLeft, Fork forkRight, CountDownLatch finish, ActionCounter counter) {
         this.counter = counter;
@@ -21,7 +26,7 @@ public class Philosopher extends Thread {
 
     @Override
     public void run() {
-        while (count != 3) {
+        while (count != countMax) {
            tryEat();
         }
         System.out.printf("%s: Я покушал %d раза!\n", name, count);
